@@ -1,30 +1,103 @@
 <html>
 <head>
 	<title>D3 - Data Driven Documents</title>
-	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<style>
+		table, td, th{ border: 1px solid black; }
+	</style>
+<!--	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>    -->
+	
 </head>
 <body>
-<script type="text/javascript">
+	<div id = "input">
+		Line Name
+		<select id = "lineOption">
+			<option>Bakerloo</option><option>Central</option><option>Northern</option><option>Metropolitan</option>
+		</select>
+		<button onclick="start()">Search</button>
+		Train ID
+		<input type = "text" id= "inputTrainId" onkeypress="enterIdSearch(event)"></input>
+	</div>	
+	<table id="myTable">
+		<thead><tr>
+			<th>Train Id</th><th>Line Name</th><th>Current Location</th><th>Station</th><th>Time to Station</th><th>Expected Arrival</th>
+		</tr></thead>
+		<tbody id="first_tbody"></tbody>
+	</table>
 
-	function requestAPI()
-	{
-		var url = 'https://api.tfl.gov.uk/Line/northern/Arrivals?app_id=31e5017c&app_key=7689c0b92a6f5b3f7688b657dce15951';
-		var xhr = new XMLHttpRequest();
-
-		xhr.onreadystatechange = function(){
-		if(xhr.readyState == 4 && xhr.status == 200) {
-			var json = JSON.parse(xhr.responseText);
-			console.log(json);
-//			document.getElementById("car_type").innerHTML = json.prices[0].display_name;
-//			document.getElementById("price").innerHTML = json.prices[0].estimate;	
-//			document.getElementById("date").innerHTML = timeZone.toString();
+	<script type="text/javascript">
+		function enterIdSearch(event){
+			var x = event.keyCode;
+			if(x == 13){
+				deleteAllRows();
+				requestAPI("trainId");
+			}
 		}
-	}	
-		xhr.open('GET', url);
-		xhr.setRequestHeader("Authorization", "Token Bzpj2OqdsiEfG8gXzI_UcoBY76hhfxiPF0CsOs3Q");
-		xhr.send();
-	}
-</script>
+		function start(){
+			deleteAllRows();
+			requestAPI("normal");
+		}
+		function requestAPI(request)
+		{
+			var line = getLine();
+			var url = 'https://api.tfl.gov.uk/Line/'+line+'/Arrivals';
+			var xhr = new XMLHttpRequest();
+	
+			xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200 && request == "normal") {
+				var json = JSON.parse(xhr.responseText);
+				console.log(json);
+				for(var i = 0; i < json.length; i++)
+					getElement(json[i]);
+			}
+			else if(xhr.readyState == 4 && xhr.status == 200 && request == "trainId") {
+				var json = JSON.parse(xhr.responseText);
+				console.log(json);
+				for(var i = 0; i < json.length; i++)
+					getElementByTrainId(json[i]);	
+			}
+			else{
+				console.log(xhr.status);
+			}
+		}	
+			xhr.open('GET', url);
+			xhr.send();
+		}
+		function getLine(){
+			var line = document.getElementById("lineOption");
+			var lineOption = line.options[line.selectedIndex].text;
+			return lineOption;
+		}
+		function addRow(trainId, lineName, currLocation, station, timeToS, expectA){
+			var table = document.getElementById("myTable");
+			var row = table.insertRow(-1);
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+			var cell3 = row.insertCell(2);
+			var cell4 = row.insertCell(3);
+			var cell5 = row.insertCell(4);
+			var cell6 = row.insertCell(5);
+			cell1.innerHTML = trainId;
+			cell2.innerHTML = lineName;
+			cell3.innerHTML = currLocation;
+			cell4.innerHTML = station;
+			cell5.innerHTML = timeToS;
+			cell6.innerHTML = expectA;
+		}
+		function getElement(train){
+			addRow(train.vehicleId, train.lineName, train.currentLocation, train.stationName, train.timeToStation, train.expectedArrival);
+		}
+		function getElementByTrainId(train){
+			var trainId = document.getElementById("inputTrainId").value;
+			if(train.vehicleId == trainId)
+				addRow(train.vehicleId, train.lineName, train.currentLocation, train.stationName, train.timeToStation, train.expectedArrival);
+		}
+		function deleteAllRows(){
+			var rowCount = myTable.rows.length;
+			for(var i = rowCount -1; i > 0; i--){
+				myTable.deleteRow(i);
+			}
+		}
+		</script>
 </body>
 </html>
 
