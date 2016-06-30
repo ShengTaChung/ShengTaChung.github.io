@@ -1,20 +1,30 @@
 <html>
 <head>
 	<title>D3 - Data Driven Documents</title>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
 <body>
-<script src="//d3js.org/d3.v3.min.js"></script>
-<script type = "javascript">
-	var dataset = [ 5, 10, 15, 20, 25 ];
+<script type="text/javascript">
 
-	d3.select('body').selectAll('div')
-		.data(dataset)
-		.enter()
-		.append('div')
-		.attr('class', 'bar')
-		.style('height', function (d) {
-			return d * 5 + 'px';
-		});
+	function requestAPI()
+	{
+		var url = 'https://api.tfl.gov.uk/Line/northern/Arrivals?app_id=31e5017c&app_key=7689c0b92a6f5b3f7688b657dce15951';
+		var xhr = new XMLHttpRequest();
+
+		xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200) {
+			var json = JSON.parse(xhr.responseText);
+			console.log(json);
+//			document.getElementById("car_type").innerHTML = json.prices[0].display_name;
+//			document.getElementById("price").innerHTML = json.prices[0].estimate;	
+//			document.getElementById("date").innerHTML = timeZone.toString();
+		}
+	}	
+		xhr.open('GET', url);
+		xhr.setRequestHeader("Authorization", "Token Bzpj2OqdsiEfG8gXzI_UcoBY76hhfxiPF0CsOs3Q");
+		xhr.send();
+	}
 </script>
 </body>
 </html>
+
