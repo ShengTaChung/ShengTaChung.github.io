@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>2048GMUCS</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+	<div id = "container">
+		<h1 id = "name">ShengTa Chung</h1>
+		<div id = "email">schung21@gmu.edu</div>
+		<div id = "information">
+			2048 GMU CS Edition
+		</div>
+		<div id = "bar">
+			<ul id = "barMenu">
+				<li><a href="http://mason.gmu.edu/~schung21"> Home </a></li>
+				<li><a href="">Resume(PDF)</a></li>
+				<li><a href="http://mason.gmu.edu/~schung21/tools">Tools</a></li></ul>
+		</div>
+	</div><br/><br/>
+	<div id = "container2"><br/>
+		<div id = "score">
+			<h3>SCORE</h3>
+			<table><tr><td id ="scoreTable">0</td></tr></table>
+			<pre>UP: W  Down: S<br/>Left: A  Right: D</pre>
+		</div>
+		<div id = "board">
+			<table id = "tiles">
+				<tr><td></td><td></td><td></td><td></td></tr>
+				<tr><td></td><td></td><td></td><td></td></tr>
+				<tr><td></td><td></td><td></td><td></td></tr>
+				<tr><td></td><td></td><td></td><td></td></tr>
+			</table>
+		</div>
+	</div>
+<script language = "javaScript">
+	var gameBoard = document.getElementById("tiles");
+	var board = new Array(4);
+	for(var i = 0; i < 4; i++)
+		board[i] = new Array(4);
+	for(var i = 0; i < 4; i++){
+		for(var j = 0; j < 4; j++)
+			board[i][j] = { hasElement:0, content:"", combined: 0};
+	}
+	gameBoard.rows[0].cells[2].innerHTML = "CS101";
+	gameBoard.rows[0].cells[2].style.backgroundColor = "white";
+	board[0][2].hasElement = 1;
+	board[0][2].content = "CS101";
+
+	gameBoard.rows[2].cells[1].innerHTML = "CS101";
+	gameBoard.rows[2].cells[1].style.backgroundColor = "white";
+	board[2][1].hasElement = 1;
+	board[2][1].content = "CS101";
+window.onload = function() { document.onkeydown = begin}
+function begin(evt){
+	var e = evt ? evt : window.event;
+	var code = e.keyCode;
+	keyControl(code);
+}
+function keyControl(code){
+	var newTileCreate = false;
+	switch(code){
+		case 65: newTileCreate = moveLeft(); break;
+		case 87: newTileCreate = moveUp(); break;
+		case 68: newTileCreate = moveRight(); break;
+		case 83: newTileCreate = moveDown(); break;
+	}
+	if(newTileCreate)
+		createNewTile(code);
+}
+function moveLeft(){
+	var moved = false;
+	for(var i = 0; i < 4; i++){
+		for(var j = 1; j < 4; j++){
+			if(board[i][j].hasElement == 1){
+				var k;
+				for(k = j; k != 0 && board[i][k-1].hasElement == 0; k--){
+					moveTile(i, k, i, k-1);
+					moved = true;
+				}
+				if(k != 0 && board[i][k].content === board[i][k-1].content && board[i][k-1].combined === 0){
+					combineTiles(i, k-1, i, k);
+					board[i][k-1].combined = 1;
+					moved = true;
+				}
+			}
+		}
+	}
+	clearAllCombinedTag();
+	return moved;
+}
+function moveRight(){
+	var moved = false;
+	for(var i = 0; i < 4; i++){
+		for(var j = 2; j >= 0; j--){
+			if(board[i][j].hasElement == 1){
+				var k;
+				for(k = j; k != 3 && board[i][k+1].hasElement == 0; k++){
+					moveTile(i, k, i, k+1);
+					moved = true;	
+				}
+				if(k != 3 && board[i][k].content === board[i][k+1].content && board[i][k+1].combined === 0){
+					combineTiles(i, k+1, i, k);
+					board[i][k+1].combined = 1;
+					moved = true;
+				}
+			}
+		}
+	}
+	clearAllCombinedTag();
+	return moved;
+}
+function moveUp(){
+	var moved = false;
+	for(var i = 0; i < 4; i++){
+		for(var j = 1; j < 4; j++){
+			if(board[j][i].hasElement == 1){
+				var k;
+				for(k = j; k != 0 && board[k-1][i].hasElement == 0; k--){
+					moveTile(k, i, k-1, i);
+					moved = true;	
+				}
+				if(k != 0 && board[k][i].content === board[k-1][i].content && board[k-1][i].combined === 0){
+					combineTiles(k-1, i, k, i);
+					board[k-1][i].combined = 1;
+					moved = true;
+				}
+			}
+		}
+	}
+	clearAllCombinedTag();
+	return moved;
+}
+function moveDown(){
+	var moved = false;
+	for(var i = 0; i < 4; i++){
+		for(var j = 2; j >= 0; j--){
+			if(board[j][i].hasElement == 1){
+				var k;
+				for(k = j; k != 3 && board[k+1][i].hasElement == 0; k++){
+					moveTile(k, i, k+1, i);
+					moved = true;
+				}
+				if(k != 3 && board[k][i].content === board[k+1][i].content && board[k+1][i].combined === 0){
+					combineTiles(k+1, i, k, i);
+					board[k+1][i].combined = 1;
+					moved = true;
+				}
+			}
+		}
+	}
+	clearAllCombinedTag();
+	return moved;
+}
+function moveTile(currR, currC, destR, destC){
+	gameBoard.rows[destR].cells[destC].style.backgroundColor = gameBoard.rows[currR].cells[currC].style.backgroundColor;
+	gameBoard.rows[currR].cells[currC].style.backgroundColor = "#009933";
+	gameBoard.rows[currR].cells[currC].innerHTML = "";
+	gameBoard.rows[destR].cells[destC].innerHTML = board[currR][currC].content;
+	board[currR][currC].hasElement = 0;
+	board[currR][currC].content = "";
+	board[destR][destC].hasElement = 1;
+	board[destR][destC].content = gameBoard.rows[destR].cells[destC].innerHTML;
+}
+function combineTiles(toR, toC, fromR, fromC){
+	gameBoard.rows[fromR].cells[fromC].style.backgroundColor = "#009933";
+	gameBoard.rows[fromR].cells[fromC].innerHTML = "";
+	board[fromR][fromC].hasElement = 0;
+	board[fromR][fromC].content = "";
+	var scoreAdd;
+	switch(board[toR][toC].content){		
+		case "CS101": gameBoard.rows[toR].cells[toC].innerHTML ="CS112";gameBoard.rows[toR].cells[toC].style.backgroundColor ="#669999";board[toR][toC].content ="CS112";scoreAdd = 4; break;
+		case "CS112": gameBoard.rows[toR].cells[toC].innerHTML ="CS211";gameBoard.rows[toR].cells[toC].style.backgroundColor ="#E0E0D1";board[toR][toC].content ="CS211";scoreAdd = 8; break;
+		case "CS211": gameBoard.rows[toR].cells[toC].innerHTML ="CS262";gameBoard.rows[toR].cells[toC].style.backgroundColor ="#2E5CE6";board[toR][toC].content ="CS262";scoreAdd = 16; break;
+		case "CS262": gameBoard.rows[toR].cells[toC].innerHTML ="CS310";gameBoard.rows[toR].cells[toC].style.backgroundColor ="#999966";board[toR][toC].content ="CS310";scoreAdd = 32; break;
+		case "CS310": gameBoard.rows[toR].cells[toC].innerHTML ="CS367";gameBoard.rows[toR].cells[toC].style.backgroundColor ="#996633";board[toR][toC].content ="CS367";scoreAdd = 64; break;
+		case "CS367": gameBoard.rows[toR].cells[toC].innerHTML ="CS465";gameBoard.rows[toR].cells[toC].style.backgroundColor ="#99FF99";board[toR][toC].content ="CS465";scoreAdd = 128; break;
+		case "CS465": gameBoard.rows[toR].cells[toC].innerHTML ="CS550";gameBoard.rows[toR].cells[toC].style.backgroundColor ="#00CCCC";board[toR][toC].content ="CS550";scoreAdd = 256; break;
+		case "CS550": gameBoard.rows[toR].cells[toC].innerHTML ="CS660";gameBoard.rows[toR].cells[toC].style.backgroundColor ="#9900FF";board[toR][toC].content ="CS660";scoreAdd = 512; break;
+		case "CS660": gameBoard.rows[toR].cells[toC].innerHTML ="CS785";gameBoard.rows[toR].cells[toC].style.backgroundColor ="#FF33CC";board[toR][toC].content ="CS785";scoreAdd = 1024; break;
+		case "CS785": gameBoard.rows[toR].cells[toC].innerHTML ="CS880";gameBoard.rows[toR].cells[toC].style.backgroundColor ="#FFA347";board[toR][toC].content ="CS880";scoreAdd = 2048; break;
+		case "CS880": gameBoard.rows[toR].cells[toC].innerHTML ="CS999";gameBoard.rows[toR].cells[toC].style.backgroundColor ="#FF1919";board[toR][toC].content ="CS999";scoreAdd = 4096; break;
+	}
+	updateScore(scoreAdd);
+}
+function updateScore(scoreAdd){
+	var scoreBoard = document.getElementById("scoreTable");
+	scoreBoard.innerHTML = parseInt(scoreBoard.innerHTML) + scoreAdd;
+}
+function clearAllCombinedTag(){
+	for(var i = 0; i < 4; i++){
+		for(var j = 0; j < 4; j++)
+			board[i][j].combined = 0;
+	}
+}
+function createNewTile(code){
+	var done = false;
+	var row, col, tileLevel;
+	var foundLargest = false;
+	while(done === false){
+		row = Math.floor(Math.random() * 4);
+		col = Math.floor(Math.random() * 4);
+		if(board[row][col].hasElement == 0)
+			done = true;
+	}
+	tileLevel = Math.floor(Math.random() * 15);
+	if(tileLevel < 11){
+		if(tileLevel > 7)
+			foundLargest = addToLargest(code);
+		if(foundLargest == false){
+			gameBoard.rows[row].cells[col].innerHTML = "CS101";
+			gameBoard.rows[row].cells[col].style.backgroundColor = "white";
+			board[row][col].hasElement = 1;
+			board[row][col].content = "CS101";}
+		}
+	else{
+		gameBoard.rows[row].cells[col].innerHTML = "CS112";
+		gameBoard.rows[row].cells[col].style.backgroundColor = "#669999";
+		board[row][col].hasElement = 1;
+		board[row][col].content = "CS112";
+	}
+}
+function addToLargest(code){
+	var found = false;
+	var largestVal = 0;
+	var largestR, largestC;
+	for(var i = 0; i < 4; i++){
+		for(var j = 0; j < 4; j++){
+			var temp = parseInt(board[i][j].content[2]) + parseInt(board[i][j].content[3]);
+			if(temp > largestVal){
+				largestVal = temp;
+				largestR = i;
+				largestC = j;
+			}
+				
+		}
+	}
+	if(code == 65){ 
+		if(board[largestR][3].hasElement === 0){
+			gameBoard.rows[largestR].cells[3].innerHTML = "CS101";
+			gameBoard.rows[largestR].cells[3].style.backgroundColor = "white";
+			board[largestR][3].hasElement = 1;
+			board[largestR][3].content = "CS101";
+			found = true;
+		}		
+	}
+	else if(code == 68){
+		if(board[largestR][0].hasElement === 0){
+			gameBoard.rows[largestR].cells[0].innerHTML = "CS101";
+			gameBoard.rows[largestR].cells[0].style.backgroundColor = "white";
+			board[largestR][0].hasElement = 1;
+			board[largestR][0].content = "CS101";
+			found = true;
+		}
+	}
+	else if(code == 87){
+		if(board[3][largestC].hasElement === 0){
+			gameBoard.rows[3].cells[largestC].innerHTML = "CS101";
+			gameBoard.rows[3].cells[largestC].style.backgroundColor = "white";
+			board[3][largestC].hasElement = 1;
+			board[3][largestC].content = "CS101";
+			found = true;
+		}
+	}
+	else{
+		if(board[0][largestC].hasElement === 0){
+			gameBoard.rows[0].cells[largestC].innerHTML = "CS101";
+			gameBoard.rows[0].cells[largestC].style.backgroundColor = "white";
+			board[0][largestC].hasElement = 1;
+			board[0][largestC].content = "CS101";
+			found = true;
+		}
+	}
+	return found;
+}
+</script>
+</body>
+</html>

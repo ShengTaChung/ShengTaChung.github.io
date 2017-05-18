@@ -1,0 +1,77 @@
+body{
+	background-position:top left;
+	background-attachment:fixed;
+	background-repeat:no-repeat;
+	background-color:#19192E;
+	margin: 3em 0;
+/*	font-family:'Gentium Book Basic'; */
+	line-height:1.5;
+	font-size:1.125rem;
+	font-weight:400;}
+h1{
+	font-weight:normal;
+	text-align:center;}
+#container {
+	background-color:#303043;
+	width: 1000px;
+	height: 150px;
+	text-align: center;
+	float: center;
+	margin: auto;
+}
+#bar{
+	background-color:#000026;
+	color:#FFA500;
+	margin: 2px 0px;
+	width: 1000px;		
+	height: 35px;
+	float: left;
+}
+#barMenu{list-style: none;}
+#barMenu li{
+	float: left;
+	margin: -11px 6.3em;
+	font-size: 14pt;
+}
+#barMenu li a{
+	text-decoration: none;
+	color:#FFA500;
+}
+#barMenu li a:hover { color: #FFFF00;}
+#barMenu li a:visited {color: #FFA500}
+#email {
+	color:#FF3399;
+	position:relative;
+	top:-1.5em;
+	line-height:1;}
+#information {
+	color:#FF3399;}
+#name {
+/* font-family: 'Computer Modern', Bookman, sans serif; */
+color: white;
+margin-bottom:1em;}
+#container2 {
+	background-color: #000026;
+	width: 1050px;
+	height: 600px;
+	margin: auto;
+}
+td {
+	border: 5px solid #FF6600;
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	background-color:#009933;	
+}
+#tiles { float: center; margin-left: 220px;}
+#score {
+	background-color: #303043;
+	width: 150px;
+	height: 70px;
+	float: right;
+	text-align: center;
+	margin-right: 130px;
+}
+#score pre{color: white;}
+#score h3{ margin: 2px 2px; color: white;}
+#scoreTable{ border: 0; width: 150px; height: 25px; text-align:center; background-color: #303043; color: #FF0000;}

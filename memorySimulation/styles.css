@@ -1,0 +1,125 @@
+body{
+	background-position:top left;
+	background-attachment:fixed;
+	background-repeat:no-repeat;
+	background-color:#19192E;
+	margin: 3em 0;
+/*	font-family:'Gentium Book Basic'; */
+	line-height:1.5;
+	font-size:1.125rem;
+	font-weight:400;}
+h1{
+	font-weight:normal;
+	text-align:center;}
+#tableName{
+	border: 0px;
+	width: 150px;
+	height: 15px
+	text-align: center;
+	color:white;
+}
+tr{text-align: center;}
+#tableAddress {
+	border: 0px;
+	width: 0px;
+	height: 15px;
+	text-align: right;
+	color:white;
+	font-size: 70%;
+}
+#tableMemory {
+	border: 2px solid #000000;	
+	width: 150px;
+	height: 15px;
+	text-align: center;
+	color:white;
+	font-size: 80%;
+}
+#tableDescription {
+	border: 0px;
+	color:white;
+	font-size: 70%;
+}
+#container {
+	background-color:#303043;
+	width: 1000px;
+	height: 150px;
+	text-align: center;
+	float: center;
+	margin: auto;
+}
+#bar{
+	background-color:#000026;
+	color:#FFA500;
+	margin: 2px 0px;
+	width: 1000px;		
+	height: 35px;
+	float: left;
+}
+#barMenu{list-style: none;}
+#barMenu li{
+	float: left;
+	margin: -11px 6.3em;
+	font-size: 14pt;
+}
+#barMenu li a{
+	text-decoration: none;
+	color:#FFA500;
+}
+#barMenu li a:hover { color: #FFFF00;}
+#barMenu li a:visited {color: #FFA500}
+#email {
+	color:#FF3399;
+	position:relative;
+	top:-1.5em;
+	line-height:1;}
+#information {
+	color:#FF3399;}
+#name {
+/* font-family: 'Computer Modern', Bookman, sans serif; */
+color: white;
+margin-bottom:1em;}
+#container2 {
+	background-color: #000026;
+	width: 1200px;
+	height: 1430px;
+	margin: auto;
+}
+#newMemoryInput {
+	color: #CC0000;
+	background-color: #19192E;
+	width: 1100px;
+	height: 50px;
+	float: center;
+	text-align:center;
+	margin: auto;
+}
+#methodControl {
+	color: #CC0000;
+	background-color: #19192E;
+	width: 700px;
+	height: 50px;
+	float: center;
+	text-align:center;
+	margin: auto;
+}
+#content1, #content2{ padding-top: 11px; }
+#allocateNewMemory, #description, #newMethodName{
+	height: 22px;
+	width: 200px;
+	border: 2px solid #456879;
+	border-radius: 10px;
+}
+#addressNum{
+	height: 22px;
+	width: 100px;
+	border: 2px solid #456879;
+	border-radius: 10px;
+}
+#innerContainer2 div{
+	background-color: #303043;
+	width: 280px;
+	height: 610px;
+	margin: 10px 10px;
+	float: left;
+}

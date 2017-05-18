@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Memory Simulation</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+	<div id = "container">
+		<h1 id = "name">ShengTa Chung</h1>
+		<div id = "email">schung21@gmu.edu</div>
+		<div id = "information">
+			Memory Simulation
+		</div>
+		<div id = "bar">
+			<ul id = "barMenu">
+				<li><a href="http://mason.gmu.edu/~schung21"> Home </a></li>
+				<li><a href="">Resume(PDF)</a></li>
+				<li><a href="http://mason.gmu.edu/~schung21/tools">Tools</a></li></ul>
+		</div>
+	</div><br/><br/>
+	<div id = "container2"><br/>
+		<div id = "innerContainer1">
+			<div id = "newMemoryInput">
+				<div id = "content1">
+					Allocate memory: <input type = "text" id = "allocateNewMemory" onkeypress="enterDone(event)">
+					<select id = "methodOptions">
+						<option>main</option>
+					</select>
+						Address: <input type = "text" id = "addressNum" onkeypress="enterDone(event)">
+					<button onclick = "allocateMemory()">Done</button>
+					Description: <input type = "text" id = "description" onkeypress="enterDescriptionDone(event)">
+					<button onclick = "allocateMemoryPlusDescription()">Done</button>
+				</div>
+			</div><br/>
+			<div id = "methodControl">
+				<div id = "content2">
+					Add new method: <input type = "text" id = "newMethodName" onkeypress="newMethodEnterDone(event)">
+					<button onclick = "addNewMethod()">Done</button>
+					Delete method: <select id = "methodDeleteOptions"><option>main</option></select>
+					<button onclick = "deleteMethod()">Done</button><br/>
+				</div>
+			</div>
+		</div>
+		<div id = "innerContainer2">
+			<div id = "tableContainer1"><table id = "memoryTable1"></table></div><div id = "tableContainer2"><table id = "memoryTable2"></table></div><div id = "tableContainer3"><table id = "memoryTable3"></table></div><div id = "tableContainer4"><table id = "memoryTable4"></table></div>
+			<div id = "tableContainer5"><table id = "memoryTable5"></table></div><div id = "tableContainer6"><table id = "memoryTable6"></table></div><div id = "tableContainer7"><table id = "memoryTable7"></table></div><div id = "tableContainer8"><table id = "memoryTable8"></table></div>
+		</div>
+	</div>
+<script language = "JavaScript">
+
+createNewTable("memoryTable1", "main");
+var tableNames = ["main","","","","","","",""];
+var tableIds = ["memoryTable1","memoryTable2","memoryTable3","memoryTable4","memoryTable5","memoryTable6","memoryTable7","memoryTable8"];
+
+function enterDone(event){
+	var x = event.keyCode;
+	if(x == 13)
+		allocateMemory();
+}
+function enterDescriptionDone(event){
+	var x = event.keyCode;
+	if(x == 13)
+		allocateMemoryPlusDescription();
+}
+function newMethodEnterDone(event){
+	var x = event.keyCode;
+	if(x == 13)
+		addNewMethod();
+}
+function allocateMemory(){
+	var newMemory = document.getElementById("allocateNewMemory").value;
+	var method = document.getElementById("methodOptions");
+	var methodName = method.options[method.selectedIndex].value.toString();
+	var methodIdIndex = matchIdName(methodName);
+	var methodTable = document.getElementById(tableIds[methodIdIndex]);
+	var address = parseInt(document.getElementById("addressNum").value);
+	var initialAddress = parseInt(methodTable.rows[1].cells[0].innerHTML);
+	methodTable.rows[address - initialAddress + 1].cells[1].innerHTML = newMemory;
+}
+function allocateMemoryPlusDescription(){
+	var newMemory = document.getElementById("allocateNewMemory").value;
+	var descriptionText = document.getElementById("description").value;
+	var method = document.getElementById("methodOptions");
+	var methodName = method.options[method.selectedIndex].value.toString();
+	var methodIdIndex = matchIdName(methodName);
+	var methodTable = document.getElementById(tableIds[methodIdIndex]);
+	var address = parseInt(document.getElementById("addressNum").value);
+	var initialAddress = parseInt(methodTable.rows[1].cells[0].innerHTML);
+	methodTable.rows[address - initialAddress + 1].cells[1].innerHTML = newMemory;
+	methodTable.rows[address - initialAddress + 1].cells[2].innerHTML = descriptionText;
+}
+
+function matchIdName(name){
+	var i; 
+	var found = -1;
+	for(i = 0; i < tableNames.length && found == -1; i++){
+		if(tableNames[i] == name)
+			found = i;
+	}
+	return found;
+}
+function addNewMethod(){
+	var methodList = document.getElementById("methodOptions");
+	var newMethod = document.createElement("option");
+	var currentMethodListLength = document.getElementById("methodOptions").options.length;
+	newMethod.text = document.getElementById("newMethodName").value;
+	var options = methodList.options;
+	var duplicate = 0, i; //Check duplicate
+	for(i = 0; i < options.length; i++){
+		if(options[i].text === newMethod.text)
+			duplicate = 1;
+	}
+	if(duplicate != 1){
+		methodList.options.add(newMethod, currentMethodListLength + 1);
+		var methodDelList = document.getElementById("methodDeleteOptions");
+		var newDelMethod = document.createElement("option");
+		newDelMethod.text = document.getElementById("newMethodName").value;
+		methodDelList.options.add(newDelMethod, currentMethodListLength + 1);
+		var newTableIndex = matchIdName("");
+		tableNames[newTableIndex] = newMethod.text; 
+		createNewTable(tableIds[newTableIndex], newMethod.text);
+	}
+}
+function deleteMethod(){
+	var methodList = document.getElementById("methodOptions");
+	var methodDelList = document.getElementById("methodDeleteOptions");
+	var methodName = methodDelList.options[methodDelList.selectedIndex].value.toString();
+	methodList.options.remove(methodDelList.selectedIndex);
+	methodDelList.options.remove(methodDelList.selectedIndex);
+	var methodIndex = matchIdName(methodName);
+	var parent = document.getElementById(tableIds[methodIndex]);
+	while(parent.hasChildNodes())
+		parent.removeChild(parent.firstChild);
+	tableNames[methodIndex] = "";
+}
+function createNewTable(tableId, methodName){
+	var i;
+	var addressNumCount = parseInt( tableId[ tableId.length - 1 ] ) * 1000;
+	var table = document.getElementById(tableId);
+	var tr = table.insertRow();
+	for(i = 0; i < 3; i++){
+		var th = tr.insertCell();
+		if(i == 0)
+			th.id = "tableAddress";
+		else if(i == 1){
+			th.id = "tableName";
+			th.appendChild(document.createTextNode(methodName));
+		}
+		else
+			th.id = "tableDescription";
+	}
+	for(i = 0; i < 20; i++){
+		var tr = table.insertRow();
+		var j;
+		for(j = 0; j < 3; j++){
+			var td = tr.insertCell();
+			if(j == 0){
+				td.id = "tableAddress";
+				if(addressNumCount % 5 == 0)
+					td.appendChild(document.createTextNode(addressNumCount));
+			}
+			else if(j == 1)
+				td.id = "tableMemory";
+			else
+				td.id = "tableDescription";
+		}
+		addressNumCount++;
+	}
+}
+</script>
+</body>
+</html>

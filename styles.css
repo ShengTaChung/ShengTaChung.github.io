@@ -1,0 +1,94 @@
+body{
+	background-position:top left;
+	background-attachment:fixed;
+	background-repeat:no-repeat;
+	background-color:#19192E;
+	margin: 3em 0;
+/*	font-family:'Gentium Book Basic'; */
+	line-height:1.5;
+	font-size:1.125rem;
+	font-weight:400;}
+h1{
+	font-weight:normal;
+	text-align:center;}
+#container {
+	background-color:#303043;
+	width: 1000px;
+	height: 150px;
+	text-align: center;
+	float: center;
+	margin: auto;
+}
+#bar{
+	background-color:#000026;
+	color:#FFA500;
+	margin: 2px 0px;
+	width: 1000px;		
+	height: 35px;
+	float: left;
+}
+#barMenu{list-style: none;}
+#barMenu li{
+	float: left;
+	margin: -11px 6.3em;
+	font-size: 14pt;
+}
+#barMenu li a{
+	text-decoration: none;
+	color:#FFA500;
+}
+#barMenu li a:hover { color: #FFFF00;}
+#barMenu li a:visited {color: #FFA500}
+#email {
+	color:#FF3399;
+	position:relative;
+	top:-1.5em;
+	line-height:1;}
+#information {
+	color:#FF3399;}
+#name {
+/* font-family: 'Computer Modern', Bookman, sans serif; */
+color: white;
+margin-bottom:1em;}
+#container2 {
+	background-color: #000026;
+	width: 1050px;
+	height: 1000px;
+	margin: auto;
+}
+#left{	
+	background-color:#303043;
+	width: 180px;
+	height: 250px;
+	float:left;
+	margin: 30px 30px;
+	background-image: url("images/IMG_1746.jpg");
+	background-repeat: no-repeat;
+	background-size: 180px 250px;
+}
+
+#left2{	
+	background-color:#303043;
+	width: 180px;
+	height: 200px;
+	float:left;
+	margin: 30px 30px;
+}
+
+#right{
+/*	background-color:#303043; */
+	width: 700px;
+	height: 1000px;
+	float:right;
+	margin: 30px 30px;
+}
+#contact{margin-top:-1em;}
+#contact h3{ color:#CC3300;text-align:center;}
+#contact pre{ color:white;text-align:center;font-size: 12px;}
+#education h3{ color:#00FF00;}
+#education pre{ color:white;}
+#skills h3{ color:#00FFFF;}
+#skills pre{ color:white;}
+#projects h3{ color:#FF3399;margin-bottom:-1em;}
+#projects li{ color:white;font-family:'Courier';font-size:1.0rem;}
+

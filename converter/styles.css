@@ -1,0 +1,103 @@
+body{
+	background-position:top left;
+	background-attachment:fixed;
+	background-repeat:no-repeat;
+	background-color:#19192E;
+	margin: 3em 0;
+/*	font-family:'Gentium Book Basic'; */
+	line-height:1.5;
+	font-size:1.125rem;
+	font-weight:400;}
+h1{
+	font-weight:normal;
+	text-align:center;}
+#container {
+	background-color:#303043;
+	width: 1000px;
+	height: 150px;
+	text-align: center;
+	float: center;
+	margin: auto;
+}
+#bar{
+	background-color:#000026;
+	color:#FFA500;
+	margin: 2px 0px;
+	width: 1000px;		
+	height: 35px;
+	float: left;
+}
+#barMenu{list-style: none;}
+#barMenu li{
+	float: left;
+	margin: -11px 6.3em;
+	font-size: 14pt;
+}
+#barMenu li a{
+	text-decoration: none;
+	color:#FFA500;
+}
+#barMenu li a:hover { color: #FFFF00;}
+#barMenu li a:visited {color: #FFA500}
+#email {
+	color:#FF3399;
+	position:relative;
+	top:-1.5em;
+	line-height:1;}
+#information {
+	color:#FF3399;}
+#name {
+/* font-family: 'Computer Modern', Bookman, sans serif; */
+color: white;
+margin-bottom:1em;}
+#container2 {
+	background-color: #000026;
+	width: 1050px;
+	height: 500px;
+	margin: auto;
+}
+
+#binaryDisplay {
+	background-color:#303043;
+	width: 1000px;
+	height: 70px;
+	float:center;
+	margin-top: -1em;
+	margin: 0px 25px;
+}
+#binaryDisplay h3{ margin-top:-0.1em; margin-bottom:-0.3em; text-align:center; color:#00FF00; }
+#binaryTable ,tr,th{ margin:auto; float: center; text-align: center; color:white; }
+#decimalDisplay {
+	background-color:#303043;
+	width: 1000px;
+	height: 70px;
+	float:center;
+	margin: 30px 25px;
+}
+#decimalDisplay h3{ margin-top:-0.1em; margin-bottom:-0.3em; text-align:center; color:#00FFFF; }
+#decimalTable ,tr,th{ margin:auto; float: center; text-align: center; color:white; }
+#hexDisplay {
+	background-color:#303043;
+	width: 1000px;
+	height: 70px;
+	float:center;
+	margin: 30px 25px;
+}
+#hexDisplay h3{ margin-top:-0.1em; margin-bottom:-0.3em; text-align:center; color:#CC3300; }
+#hexTable ,tr,th{ margin:auto; float: center; text-align: center; color:white; }
+
+#innerContainer {
+	background-color:#19192E;
+	width: 500px;
+	height: 100px;
+	float:center;
+	text-align:center;
+	margin: auto;
+	color:white;
+}
+#inputValue {
+	height: 22px;
+	width: 230px;
+	border: 2px solid #456879;
+	border-radius: 10px;
+}
