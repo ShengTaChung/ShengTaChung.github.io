@@ -14,7 +14,7 @@ $(document).ready(function(e){
 
 });
 
-$(document).keypress(function(e){
+$(document).keydown(function(e){
 	var code = e.keyCode || e.which;
 	var topV = parseInt($("div").css("top"), 10);
 	var leftV = parseInt($("div").css("left"), 10);
