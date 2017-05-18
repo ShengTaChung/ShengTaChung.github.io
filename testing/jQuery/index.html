@@ -5,7 +5,11 @@
 <script> 
 
 $(document).keyup(function(e){
-	alert('foo');
+	var code = e.keyCode || e.which;
+	var topV = parseInt($("div").css("top"), 10);
+	var leftV = parseInt($("div").css("left"), 10);
+	
+	alert(code);
 /*
 	var code = e.keyCode || e.which;
 	var topV = parseInt($("div").css("top"), 10);
