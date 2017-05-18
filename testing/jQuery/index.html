@@ -4,15 +4,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script> 
 $(document).ready(function(e){
-    $("button").click(function(){
-        var div = $("div");
-        div.animate({height: '300px', opacity: '0.4'}, "slow");
-        div.animate({width: '300px', opacity: '0.8'}, "slow");
-        div.animate({height: '100px', opacity: '0.4'}, "slow");
-        div.animate({width: '100px', opacity: '0.8'}, "slow");
-    });
 
-});
 
 $(document).keyup(function(e){
 	var code = e.keyCode || e.which;
@@ -39,6 +31,7 @@ $(document).keyup(function(e){
         var div = $("div");
         div.animate({left: newLeft , opacity: '0.4'}, "fast");
 	}
+});
 });
 </script> 
 </head>
