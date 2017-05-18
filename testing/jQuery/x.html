@@ -30,11 +30,13 @@ $(document).keydown(function(e){
 			var newLeft = leftV - 60;
 	        var div = $("div");
 	        div.animate({left: newLeft }, "fast");
+			$("#mason").attr("src","mason_left.gif");
 		}
 		else if(code == 68){											//d right
 			var newLeft = leftV + 60;
 	        var div = $("div");
 	        div.animate({left: newLeft }, "fast");
+			$("#mason").attr("src","mason_right.gif");
 		}
 		else if(code == 32){											//Space Jump
 			var newTop = topV - 60;
@@ -69,7 +71,7 @@ a: Left<br/>
 d: right<br/>
 space: Jump
 <div style="height:100px;width:100px;position:fixed;top:50%;left:50%;">
-	<img style="max-width:100%;max-height:100%;" src="mason.gif">
+	<img id="mason" style="max-width:100%;max-height:100%;" src="mason_right.gif">
 </div>
 
 </body>
