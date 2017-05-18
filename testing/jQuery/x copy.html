@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script> 
+
+var pressed = false;
+
+$(document).keydown(function(e){
+
+	var code = e.keyCode || e.which;
+	var topV = parseInt($("div").css("top"), 10);
+	var leftV = parseInt($("div").css("left"), 10);
+
+//	alert(code);
+	if(!pressed){
+		if(code == 87){													//w UP
+			var newTop = topV - 60;
+		    var div = $("div");
+	        //div.animate({top: newTop , opacity: '0.4'}, "fast");
+
+	        div.animate({top: newTop }, "fast");
+		}
+		else if(code == 83){											//s Down
+			var newTop = topV + 60;
+	        var div = $("div");
+	        div.animate({top: newTop }, "fast");
+		}
+		else if(code == 65){											//a Left
+			var newLeft = leftV - 60;
+	        var div = $("div");
+	        div.animate({left: newLeft }, "fast");
+		}
+		else if(code == 68){											//d right
+			var newLeft = leftV + 60;
+	        var div = $("div");
+	        div.animate({left: newLeft }, "fast");
+		}
+		else if(code == 32){											//Space Jump
+			var newTop = topV - 60;
+	        var div = $("div");
+	        div.animate({top: newTop }, "fast");
+	        div.animate({top: topV }, "fast");
+		}
+		if(code == 32){
+			pressed = true;
+			i = setTimeout(function() {
+        	pressed = false;
+        	}, 350);
+		}
+		else{
+			pressed = true;
+			i = setTimeout(function() {
+	        pressed = false;
+	        }, 200);
+		}
+	}
+//	e.preventDefault();
+});
+
+
+</script> 
+</head>
+<body>
+
+w: UP<br/> 
+s: Down <br/>
+a: Left<br/>
+d: right<br/>
+space: Jump
+<div style="height:100px;width:100px;position:fixed;top:50%;left:50%;">
+	<img style="max-width:100%;max-height:100%;" src="mason.gif">
+</div>
+
+</body>
+</html>
+
+
