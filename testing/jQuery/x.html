@@ -4,60 +4,109 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script> 
 
+/*
+var delay = (function(){
+  var timer = 0;
+  return function(callback, ms, topV){
+    clearTimeout (timer);
+    timer = setTimeout(callback, ms);
+  };
+})();
+*/
+
 var pressed = false;
+var map = {87: false, 83: false, 65: false, 68: false, 32: false};
+/*
+$(document).ready(function () {
+	$(document).bind('keydown',function(e){
+		moveHandler(e);
+//		alert("hi");
+	});
+});
+*/
 
-$(document).keyup(function(e){
-
+//function moveHandler(e){
+$(document).keydown(function(e){
 	var code = e.keyCode || e.which;
 	var topV = parseInt($("div").css("top"), 10);
 	var leftV = parseInt($("div").css("left"), 10);
-
-//	alert(code);
+	
 	if(!pressed){
-		if(code == 87){													//w UP
-			var newTop = topV - 60;
-		    var div = $("div");
-	        //div.animate({top: newTop , opacity: '0.4'}, "fast");
+		pressed = true;
+		if(e.keyCode in map){
+//			alert(map[e.keyCode]);
+			map[e.keyCode] = true;
 
-	        div.animate({top: newTop }, "fast");
-		}
-		else if(code == 83){											//s Down
-			var newTop = topV + 60;
-	        var div = $("div");
-	        div.animate({top: newTop }, "fast");
-		}
-		else if(code == 65){											//a Left
-			var newLeft = leftV - 60;
-	        var div = $("div");
-	        div.animate({left: newLeft }, "fast");
-			$("#mason").attr("src","mason_left.gif");
-		}
-		else if(code == 68){											//d right
-			var newLeft = leftV + 60;
-	        var div = $("div");
-	        div.animate({left: newLeft }, "fast");
-			$("#mason").attr("src","mason_right.gif");
-		}
-		else if(code == 32){											//Space Jump
-			var newTop = topV - 60;
-	        var div = $("div");
-	        div.animate({top: newTop }, "fast");
-	        div.animate({top: topV }, "fast");
-		}
-		if(code == 32){
-			pressed = true;
-			i = setTimeout(function() {
-        	pressed = false;
-        	}, 350);
-		}
-		else{
-			pressed = true;
-			i = setTimeout(function() {
-	        pressed = false;
-	        }, 200);
+			if(map[32] && map[68]){
+				var newTop = topV - 150;
+				var newLeft = leftV + 150;
+	        	var div = $("div");
+	        	div.animate({top: newTop }, 100);
+				div.animate({left: newLeft }, 200);
+		        div.animate({top: topV }, 200, function(){
+					pressed = false;
+				});
+				$("#mason").attr("src","mason_right.gif");			
+			}
+			else if(map[32] && map[65]){
+				var newTop = topV - 150;
+				var newLeft = leftV - 150;
+		        var div = $("div");
+	        	div.animate({top: newTop }, 100);
+				div.animate({left: newLeft }, 200);
+		        div.animate({top: topV }, 200, function(){
+					pressed = false;
+				});
+				$("#mason").attr("src","mason_left.gif");			
+			}
+			else if(code == 87){													//w UP
+				var newTop = topV - 60;
+			    var div = $("div");
+		        //div.animate({top: newTop , opacity: '0.4'}, "fast");
+
+	    	    div.animate({top: newTop }, 100, function(){
+				pressed = false;
+				});
+			}
+			else if(code == 83){											//s Down
+				var newTop = topV + 60;
+		        var div = $("div");
+		        div.animate({top: newTop }, 100, function(){
+					pressed = false;
+				});
+			}
+			else if(code == 65){											//a Left
+				var newLeft = leftV - 60;
+		        var div = $("div");
+		        div.animate({left: newLeft }, 100, function(){
+					pressed = false;
+				});
+				$("#mason").attr("src","mason_left.gif");
+			}
+			else if(code == 68){											//d right
+				var newLeft = leftV + 60;
+		        var div = $("div");
+		        div.animate({left: newLeft }, 100, function(){
+					pressed = false;
+				});
+				$("#mason").attr("src","mason_right.gif");
+			}
+			else if(code == 32){											//Space Jump
+	//			delay(function(){
+				var newTop = topV - 150;
+	        	var div = $("div");
+	        	div.animate({top: newTop }, 100);
+	        	div.animate({top: topV }, 100, function(){
+					pressed = false;
+				});
+//  		}, 100, topV );	
+			}
 		}
 	}
-//	e.preventDefault();
+}).keyup(function(e) {
+	if (e.keyCode in map) {
+       	map[e.keyCode] = false;
+	}
 });
 
 
@@ -69,7 +118,9 @@ w: UP<br/>
 s: Down <br/>
 a: Left<br/>
 d: right<br/>
-space: Jump
+space: Jump<br/>
+d -> space: Forward Jump<br/>
+s -> space: Backward Jump<br/>
 <div style="height:100px;width:100px;position:fixed;top:50%;left:50%;">
 	<img id="mason" style="max-width:100%;max-height:100%;" src="mason_right.gif">
 </div>
