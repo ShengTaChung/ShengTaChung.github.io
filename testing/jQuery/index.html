@@ -19,16 +19,16 @@ $(document).keypress(function(e){
 	var topV = parseInt($("div").css("top"), 10);
 	var leftV = parseInt($("div").css("left"), 10);
 
-	if(code == 119){												//W
-		var newTop = topV - 30;
+	if(code == 119){												//w
+		var newTop = topV - 60;
         var div = $("div");
         div.animate({top: newTop , opacity: '0.4'}, "slow");
-        div.animate({width: '300px', opacity: '0.8'}, "slow");
-        div.animate({height: '100px', opacity: '0.4'}, "slow");
-        div.animate({width: '100px', opacity: '0.8'}, "slow");
 	}
-//	else if(code == 115){												//S
-//	}
+	else if(code == 115){											//w
+		var newTop = topV + 60
+        var div = $("div");
+        div.animate({top: newTop , opacity: '0.4'}, "slow");
+	}
 //	else if(code == 97){
 //	}
 //	else if(code == 100)
