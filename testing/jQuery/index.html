@@ -7,7 +7,7 @@ $(document).ready(function(e){
 
 });
 
-$(document).on('keyup', function(e){
+$(document).on('keypress', function(e){
 	var code = e.keyCode || e.which;
 	var topV = parseInt($("div").css("top"), 10);
 	var leftV = parseInt($("div").css("left"), 10);
@@ -32,6 +32,7 @@ $(document).on('keyup', function(e){
         var div = $("div");
         div.animate({left: newLeft , opacity: '0.4'}, "fast");
 	}
+	e.preventDefault();
 });
 </script> 
 </head>
