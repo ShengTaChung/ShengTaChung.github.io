@@ -14,11 +14,11 @@ $(document).ready(function(e){
 
 });
 
-$(document).keydown(function(e){
+$(document).keyup(function(e){
 	var code = e.keyCode || e.which;
 	var topV = parseInt($("div").css("top"), 10);
 	var leftV = parseInt($("div").css("left"), 10);
-
+	console.log(e.which);
 	if(code == 119){												//w
 		var newTop = topV - 60;
         var div = $("div");
