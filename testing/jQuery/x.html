@@ -32,18 +32,18 @@ $(document).keydown(function(e){
 	var leftV = parseInt($("div").css("left"), 10);
 	
 	if(!pressed){
-		pressed = true;
 		if(e.keyCode in map){
+			pressed = true;
 //			alert(map[e.keyCode]);
 			map[e.keyCode] = true;
+			var div = $("#character");
 
 			if(map[32] && map[68]){
 				var newTop = topV - 150;
 				var newLeft = leftV + 150;
-	        	var div = $("div");
 	        	div.animate({top: newTop }, 100);
-				div.animate({left: newLeft }, 200);
-		        div.animate({top: topV }, 200, function(){
+				div.animate({left: newLeft }, 100);
+		        div.animate({top: topV }, 100, function(){
 					pressed = false;
 				});
 				$("#mason").attr("src","mason_right.gif");			
@@ -51,33 +51,28 @@ $(document).keydown(function(e){
 			else if(map[32] && map[65]){
 				var newTop = topV - 150;
 				var newLeft = leftV - 150;
-		        var div = $("div");
 	        	div.animate({top: newTop }, 100);
-				div.animate({left: newLeft }, 200);
-		        div.animate({top: topV }, 200, function(){
+				div.animate({left: newLeft }, 100);
+		        div.animate({top: topV }, 100, function(){
 					pressed = false;
 				});
 				$("#mason").attr("src","mason_left.gif");			
 			}
 			else if(code == 87){													//w UP
 				var newTop = topV - 60;
-			    var div = $("div");
 		        //div.animate({top: newTop , opacity: '0.4'}, "fast");
-
 	    	    div.animate({top: newTop }, 100, function(){
 				pressed = false;
 				});
 			}
 			else if(code == 83){											//s Down
 				var newTop = topV + 60;
-		        var div = $("div");
 		        div.animate({top: newTop }, 100, function(){
 					pressed = false;
 				});
 			}
 			else if(code == 65){											//a Left
 				var newLeft = leftV - 60;
-		        var div = $("div");
 		        div.animate({left: newLeft }, 100, function(){
 					pressed = false;
 				});
@@ -85,7 +80,6 @@ $(document).keydown(function(e){
 			}
 			else if(code == 68){											//d right
 				var newLeft = leftV + 60;
-		        var div = $("div");
 		        div.animate({left: newLeft }, 100, function(){
 					pressed = false;
 				});
@@ -94,7 +88,6 @@ $(document).keydown(function(e){
 			else if(code == 32){											//Space Jump
 	//			delay(function(){
 				var newTop = topV - 150;
-	        	var div = $("div");
 	        	div.animate({top: newTop }, 100);
 	        	div.animate({top: topV }, 100, function(){
 					pressed = false;
@@ -121,8 +114,12 @@ d: right<br/>
 space: Jump<br/>
 d -> space: Forward Jump<br/>
 s -> space: Backward Jump<br/>
-<div style="height:100px;width:100px;position:fixed;top:50%;left:50%;">
+<div id="character" style="height:100px;width:100px;position:fixed;top:50%;left:50%;">
 	<img id="mason" style="max-width:100%;max-height:100%;" src="mason_right.gif">
+</div>
+
+<div id = "box" style="height:50px;width:50px;position:fixed;top:40%;left:60%;">
+	<img id="markBox" style="max-width:100%;max-height:100%;" src="markBox.gif">
 </div>
 
 </body>
