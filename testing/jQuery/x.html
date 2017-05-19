@@ -28,9 +28,10 @@ $(document).ready(function () {
 //function moveHandler(e){
 $(document).keydown(function(e){
 	var code = e.keyCode || e.which;
-	var topV = parseInt($("div").css("top"), 10);
-	var leftV = parseInt($("div").css("left"), 10);
-	
+//	var topV = parseInt($("div").css("top"), 10);
+//	var leftV = parseInt($("div").css("left"), 10);
+	var topV = parseInt($("#character").css("top"), 10);
+	var leftV = parseInt($("#character").css("left"), 10);
 	if(!pressed){
 		if(e.keyCode in map){
 			pressed = true;
@@ -88,6 +89,7 @@ $(document).keydown(function(e){
 			else if(code == 32){											//Space Jump
 	//			delay(function(){
 				var newTop = topV - 150;
+				checkBoxHit();
 	        	div.animate({top: newTop }, 100);
 	        	div.animate({top: topV }, 100, function(){
 					pressed = false;
@@ -102,6 +104,22 @@ $(document).keydown(function(e){
 	}
 });
 
+function checkBoxHit(){
+	var boxTop = parseInt($("#box").css("top"), 10);
+	var boxLeft = parseInt($("#box").css("left"), 10);
+	var charTop = parseInt($("#character").css("top"), 10);
+	var charLeft = parseInt($("#character").css("left"), 10);
+		
+	var div = $("#box");
+	if(((charTop-190) <= boxTop) &&
+		((boxLeft-50)<charLeft) &&
+		((boxLeft+50)>charLeft))
+	{
+		var newBTop = boxTop - 100;
+		div.animate({top: newBTop }, 200);
+		div.animate({top: boxTop }, 200);
+	}
+}
 
 </script> 
 </head>
