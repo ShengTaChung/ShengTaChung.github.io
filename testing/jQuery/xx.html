@@ -15,7 +15,7 @@ var delay = (function(){
 */
 
 var pressed = false;
-var map = {38: false, 40: false, 37: false, 39: false, 32: false};
+var map = {87: false, 83: false, 65: false, 68: false, 32: false};
 /*
 $(document).ready(function () {
 	$(document).bind('keydown',function(e){
@@ -39,7 +39,7 @@ $(window).keydown(function(e){
 			map[e.keyCode] = true;
 			var div = $("#character");
 
-			if(map[32] && map[39]){
+			if(map[32] && map[68]){
 				var newTop = topV - 150;
 				var newLeft = leftV + 150;
 	        	div.animate({top: newTop }, 100);
@@ -49,7 +49,7 @@ $(window).keydown(function(e){
 				});
 				$("#mason").attr("src","mason_right.gif");			
 			}
-			else if(map[32] && map[37]){
+			else if(map[32] && map[65]){
 				var newTop = topV - 150;
 				var newLeft = leftV - 150;
 	        	div.animate({top: newTop }, 100);
@@ -59,27 +59,27 @@ $(window).keydown(function(e){
 				});
 				$("#mason").attr("src","mason_left.gif");			
 			}
-			else if(code == 38){													//w UP
+			else if(code == 87){													//w UP
 				var newTop = topV - 60;
 		        //div.animate({top: newTop , opacity: '0.4'}, "fast");
 	    	    div.animate({top: newTop }, 100, function(){
 				pressed = false;
 				});
 			}
-			else if(code == 40){											//s Down
+			else if(code == 83){											//s Down
 				var newTop = topV + 60;
 		        div.animate({top: newTop }, 100, function(){
 					pressed = false;
 				});
 			}
-			else if(code == 37){											//a Left
+			else if(code == 65){											//a Left
 				var newLeft = leftV - 60;
-		        div.animate({left: newLeft }, 0, function(){
+		        div.animate({left: newLeft }, 100, function(){
 					pressed = false;
 				});
 				$("#mason").attr("src","mason_left.gif");
 			}
-			else if(code == 39){											//d right
+			else if(code == 68){											//d right
 				var newLeft = leftV + 60;
 		        div.animate({left: newLeft }, 100, function(){
 					pressed = false;
@@ -125,13 +125,13 @@ function checkBoxHit(){
 </head>
 <body>
 
-^ : UP<br/> 
-v : Down <br/>
-< : Left<br/>
-> : right<br/>
+w: UP<br/> 
+s: Down <br/>
+a: Left<br/>
+d: right<br/>
 space: Jump<br/>
-> + space: Forward Jump<br/>
-< + space: Backward Jump<br/>
+d -> space: Forward Jump<br/>
+s -> space: Backward Jump<br/>
 <div id="character" style="height:100px;width:100px;position:fixed;top:50%;left:50%;">
 	<img id="mason" style="max-width:100%;max-height:100%;" src="mason_right.gif">
 </div>
@@ -141,6 +141,8 @@ space: Jump<br/>
 </div>
 
 <div id="game-container" style="width:1000px;">
+	<canvas id="canvas" height = "1000" style="border:1px solid black; width="780"">
+	</canvas>
 </div>
 
 </body>
